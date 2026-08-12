@@ -2,6 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>منيو منتجع الساند بيتش</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap');
@@ -16,44 +17,92 @@
         body {
             background-color: #d8c3a5;
             color: #2b2b2b;
-            padding: 20px;
+            padding: 15px;
         }
 
-        .menu-container {
-            display: flex;
-            gap: 20px;
-            max-width: 1400px;
+        .menu-wrapper {
+            max-width: 800px;
             margin: 0 auto;
-            justify-content: center;
-        }
-
-        .page {
             background: #fdfaf4;
-            width: 680px;
-            padding: 30px;
-            border-radius: 8px;
+            border-radius: 12px;
             box-shadow: 0 10px 20px rgba(0,0,0,0.15);
             border: 2px solid #d4af37;
-            position: relative;
+            overflow: hidden;
         }
 
         .header {
             text-align: center;
             border-bottom: 2px solid #d4af37;
-            padding-bottom: 15px;
-            margin-bottom: 20px;
+            padding: 20px;
+            background: #fff;
         }
 
         .header h1 {
             color: #2c3e50;
-            font-size: 28px;
+            font-size: 26px;
             font-weight: 800;
         }
 
         .header p {
             color: #8b6b23;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 600;
+            margin-top: 5px;
+        }
+
+        /* شريط الأقسام المتحرك */
+        .category-bar {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            white-space: nowrap;
+            padding: 12px 15px;
+            background: #2b2b2b;
+            border-bottom: 2px solid #d4af37;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            scroll-behavior: smooth;
+        }
+
+        .category-bar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .cat-btn {
+            background-color: #444;
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            flex-shrink: 0;
+        }
+
+        /* زر المنيو الكامل بلون مميز */
+        .cat-btn.all-menu {
+            background-color: #d4af37;
+            color: #2b2b2b;
+            font-weight: 700;
+        }
+
+        .cat-btn.active, .cat-btn:hover {
+            background-color: #d4af37;
+            color: #2b2b2b;
+            font-weight: 700;
+        }
+
+        /* محتوى المنيو والأقسام */
+        .menu-content {
+            padding: 20px;
+        }
+
+        .menu-section {
+            display: block; /* افتراضياً تظهر كل الأقسام إذا اختار المنيو كامل */
+            margin-bottom: 30px;
         }
 
         .section-title {
@@ -64,22 +113,28 @@
             font-size: 16px;
             font-weight: 700;
             display: inline-block;
-            margin-bottom: 12px;
-            margin-top: 15px;
+            margin-bottom: 15px;
         }
 
         .items-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 8px 20px;
+            grid-template-columns: 1fr;
+            gap: 12px;
+        }
+
+        @media (min-width: 600px) {
+            .items-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 12px 20px;
+            }
         }
 
         .item {
             display: flex;
             justify-content: space-between;
             border-bottom: 1px dotted #ccc;
-            padding-bottom: 3px;
-            font-size: 13.5px;
+            padding-bottom: 6px;
+            font-size: 14px;
         }
 
         .item-name {
@@ -90,150 +145,201 @@
         .item-price {
             font-weight: 700;
             color: #8b6b23;
-        }
-
-        @media print {
-            body { background: none; padding: 0; }
-            .menu-container { display: block; }
-            .page { width: 100%; page-break-after: always; margin-bottom: 0; box-shadow: none; }
+            white-space: nowrap;
+            margin-right: 10px;
         }
     </style>
 </head>
 <body>
 
-<div class="menu-container">
-    <!-- الصفحة الأولى -->
-    <div class="page">
-        <div class="header">
-            <h1>منتجع الساند بيتش</h1>
-            <p>أرقى منتجع سياحي على مستوى قطاع غزة</p>
-        </div>
-
-        <div class="section-title">الوجبات الرئيسيّة</div>
-        <div class="items-grid">
-            <div class="item"><span class="item-name">طاجن لحمة بالخضار</span><span class="item-price">60</span></div>
-            <div class="item"><span class="item-name">وجبة لحم + رز لشخص 1</span><span class="item-price">60</span></div>
-            <div class="item"><span class="item-name">وجبة نصف دجاجة مسخن</span><span class="item-price">65</span></div>
-            <div class="item"><span class="item-name">وجبة نصف دجاجة فرن + رز</span><span class="item-price">55</span></div>
-            <div class="item"><span class="item-name">وجبة مشاوي مشكل</span><span class="item-price">60</span></div>
-            <div class="item"><span class="item-name">وجبة اسكالوبيني</span><span class="item-price">60</span></div>
-            <div class="item"><span class="item-name">وجبة ستيك دجاج بصوص المشروم</span><span class="item-price">65</span></div>
-            <div class="item"><span class="item-name">وجبة مسحب دجاج</span><span class="item-price">55</span></div>
-            <div class="item"><span class="item-name">وجبة ستيك دجاج بالخضار</span><span class="item-price">65</span></div>
-            <div class="item"><span class="item-name">وجبة كباب عربي</span><span class="item-price">40</span></div>
-            <div class="item"><span class="item-name">وجبة ستيك فيليه بالكريمة</span><span class="item-price">70</span></div>
-            <div class="item"><span class="item-name">وجبة ستيك فيليه بالخضار</span><span class="item-price">70</span></div>
-            <div class="item"><span class="item-name">وجبة شقف فيليه مشوي باللية</span><span class="item-price">80</span></div>
-            <div class="item"><span class="item-name">وجبة شيش طاووق</span><span class="item-price">55</span></div>
-            <div class="item"><span class="item-name">وجبة دجاج عالأفحم</span><span class="item-price">55</span></div>
-            <div class="item"><span class="item-name">وجبة شنيتسل</span><span class="item-price">45</span></div>
-            <div class="item"><span class="item-name">وجبة دجاج بروست</span><span class="item-price">60</span></div>
-            <div class="item"><span class="item-name">كوردن بلو</span><span class="item-price">60</span></div>
-            <div class="item"><span class="item-name">امباسدور</span><span class="item-price">80</span></div>
-            <div class="item"><span class="item-name">فخد مشوي بالخضار</span><span class="item-price">60</span></div>
-            <div class="item"><span class="item-name">وجبة الساند بيتش</span><span class="item-price">65</span></div>
-            <div class="item"><span class="item-name">مكس فواكه البحر</span><span class="item-price">75</span></div>
-            <div class="item"><span class="item-name">وجبة دجاج بالجبن</span><span class="item-price">60</span></div>
-        </div>
-
-        <div class="section-title">الشاورما</div>
-        <div class="items-grid">
-            <div class="item"><span class="item-name">وجبة شاورما</span><span class="item-price">55</span></div>
-            <div class="item"><span class="item-name">شاورما دبل لحمة</span><span class="item-price">25</span></div>
-            <div class="item"><span class="item-name">شاورما سوري</span><span class="item-price">30</span></div>
-            <div class="item"><span class="item-name">شاورما صاروخ</span><span class="item-price">30</span></div>
-            <div class="item"><span class="item-name">صفيحة شاورما</span><span class="item-price">30</span></div>
-            <div class="item"><span class="item-name">شاورما اساور / عرب</span><span class="item-price">30</span></div>
-            <div class="item"><span class="item-name">شاورما بيجي</span><span class="item-price">35</span></div>
-            <div class="item"><span class="item-name">شاورما فينو</span><span class="item-price">25</span></div>
-            <div class="item"><span class="item-name">شاورما ضاني دبل</span><span class="item-price">45</span></div>
-            <div class="item"><span class="item-name">شاورما ضاني دبل دبل</span><span class="item-price">50</span></div>
-            <div class="item"><span class="item-name">صفيحة شاورما ضاني</span><span class="item-price">50</span></div>
-            <div class="item"><span class="item-name">شاورما ضاني سوري</span><span class="item-price">50</span></div>
-        </div>
-
-        <div class="section-title">ساندويتشات غربي</div>
-        <div class="items-grid">
-            <div class="item"><span class="item-name">صفيحة مسحب بالجبن</span><span class="item-price">40</span></div>
-            <div class="item"><span class="item-name">صفيحة ستيك دجاج</span><span class="item-price">30</span></div>
-            <div class="item"><span class="item-name">ساندويتش تشكن بيتزا</span><span class="item-price">40</span></div>
-            <div class="item"><span class="item-name">ساندوتش دجاج بالجبنة</span><span class="item-price">40</span></div>
-            <div class="item"><span class="item-name">ساندويتش شرائح فيليه بالخضار</span><span class="item-price">35</span></div>
-            <div class="item"><span class="item-name">ساندوتش ساند بيتش</span><span class="item-price">45</span></div>
-            <div class="item"><span class="item-name">ساندوتش مكسيكي حار</span><span class="item-price">35</span></div>
-            <div class="item"><span class="item-name">ساندوتش زنجر</span><span class="item-price">30</span></div>
-            <div class="item"><span class="item-name">كالزوني</span><span class="item-price">45</span></div>
-            <div class="item"><span class="item-name">تشكن برجر</span><span class="item-price">30</span></div>
-            <div class="item"><span class="item-name">بيف برجر عرض</span><span class="item-price">25</span></div>
-            <div class="item"><span class="item-name">برجر بروست</span><span class="item-price">35</span></div>
-        </div>
-
-        <div class="section-title">البيتزا والأسماك</div>
-        <div class="items-grid">
-            <div class="item"><span class="item-name">بيتزا وسط شاورما</span><span class="item-price">40</span></div>
-            <div class="item"><span class="item-name">بيتزا وسط لحمة مفرومة</span><span class="item-price">40</span></div>
-            <div class="item"><span class="item-name">بيتزا وسط خضار / مرجريتا</span><span class="item-price">30</span></div>
-            <div class="item"><span class="item-name">وجبة سمك 500 غر</span><span class="item-price">120</span></div>
-            <div class="item"><span class="item-name">كيلو سمك</span><span class="item-price">220</span></div>
-            <div class="item"><span class="item-name">كيلو سمك شامل ملحقاته</span><span class="item-price">270</span></div>
-        </div>
+<div class="menu-wrapper">
+    <div class="header">
+        <h1>منتجع الساند بيتش</h1>
+        <p>أرقى منتجع سياحي على مستوى قطاع غزة</p>
     </div>
 
-    <!-- الصفحة الثانية -->
-    <div class="page">
-        <div class="header">
-            <h1>منتجع الساند بيتش</h1>
-            <p>الحلويات، المشروبات، والخدمات</p>
+    <!-- شريط الأقسام المتحرك مع زر المنيو الكامل -->
+    <div class="category-bar">
+        <button class="cat-btn all-menu active" onclick="filterCategory('all', this)">المنيو كامل</button>
+        <button class="cat-btn" onclick="filterCategory('main', this)">الوجبات الرئيسية</button>
+        <button class="cat-btn" onclick="filterCategory('shawarma', this)">الشاورما</button>
+        <button class="cat-btn" onclick="filterCategory('western', this)">ساندويتشات غربي</button>
+        <button class="cat-btn" onclick="filterCategory('pizza-fish', this)">البيتزا والأسماك</button>
+        <button class="cat-btn" onclick="filterCategory('desserts', this)">الحلويات</button>
+        <button class="cat-btn" onclick="filterCategory('cold-drinks', this)">العصائر والموهيتو</button>
+        <button class="cat-btn" onclick="filterCategory('hot-drinks', this)">المشروبات الساخنة والغازية</button>
+        <button class="cat-btn" onclick="filterCategory('shisha', this)">الأراجيل والخدمات</button>
+    </div>
+
+    <div class="menu-content">
+        
+        <!-- 1. الوجبات الرئيسية -->
+        <div id="main" class="menu-section">
+            <div class="section-title">الوجبات الرئيسيّة</div>
+            <div class="items-grid">
+                <div class="item"><span class="item-name">طاجن لحمة بالخضار</span><span class="item-price">60 ₪</span></div>
+                <div class="item"><span class="item-name">وجبة لحم + رز لشخص 1</span><span class="item-price">60 ₪</span></div>
+                <div class="item"><span class="item-name">وجبة نصف دجاجة مسخن</span><span class="item-price">65 ₪</span></div>
+                <div class="item"><span class="item-name">وجبة نصف دجاجة فرن + رز</span><span class="item-price">55 ₪</span></div>
+                <div class="item"><span class="item-name">وجبة مشاوي مشكل</span><span class="item-price">60 ₪</span></div>
+                <div class="item"><span class="item-name">وجبة اسكالوبيني</span><span class="item-price">60 ₪</span></div>
+                <div class="item"><span class="item-name">وجبة ستيك دجاج بصوص المشروم</span><span class="item-price">65 ₪</span></div>
+                <div class="item"><span class="item-name">وجبة مسحب دجاج</span><span class="item-price">55 ₪</span></div>
+                <div class="item"><span class="item-name">وجبة ستيك دجاج بالخضار</span><span class="item-price">65 ₪</span></div>
+                <div class="item"><span class="item-name">وجبة كباب عربي</span><span class="item-price">40 ₪</span></div>
+                <div class="item"><span class="item-name">وجبة ستيك فيليه بالكريمة</span><span class="item-price">70 ₪</span></div>
+                <div class="item"><span class="item-name">وجبة ستيك فيليه بالخضار</span><span class="item-price">70 ₪</span></div>
+                <div class="item"><span class="item-name">وجبة شقف فيليه مشوي باللية</span><span class="item-price">80 ₪</span></div>
+                <div class="item"><span class="item-name">وجبة شيش طاووق</span><span class="item-price">55 ₪</span></div>
+                <div class="item"><span class="item-name">وجبة دجاج عالأفحم</span><span class="item-price">55 ₪</span></div>
+                <div class="item"><span class="item-name">وجبة شنيتسل</span><span class="item-price">45 ₪</span></div>
+                <div class="item"><span class="item-name">وجبة دجاج بروست</span><span class="item-price">60 ₪</span></div>
+                <div class="item"><span class="item-name">كوردن بلو</span><span class="item-price">60 ₪</span></div>
+                <div class="item"><span class="item-name">امباسدور</span><span class="item-price">80 ₪</span></div>
+                <div class="item"><span class="item-name">فخد مشوي بالخضار</span><span class="item-price">60 ₪</span></div>
+                <div class="item"><span class="item-name">وجبة الساند بيتش</span><span class="item-price">65 ₪</span></div>
+                <div class="item"><span class="item-name">مكس فواكه البحر</span><span class="item-price">75 ₪</span></div>
+                <div class="item"><span class="item-name">وجبة دجاج بالجبن</span><span class="item-price">60 ₪</span></div>
+            </div>
         </div>
 
-        <div class="section-title">الحلويات والمخبوزات الحلوة</div>
-        <div class="items-grid">
-            <div class="item"><span class="item-name">تشيز بلوبري / لوتس</span><span class="item-price">30-35</span></div>
-            <div class="item"><span class="item-name">هبه دبي / براونيز</span><span class="item-price">35</span></div>
-            <div class="item"><span class="item-name">كنافة نوتيلا / أيس كريم</span><span class="item-price">25-30</span></div>
-            <div class="item"><span class="item-name">بان بريدو (كافيه/مانجا/فراولة)</span><span class="item-price">40</span></div>
-            <div class="item"><span class="item-name">تيراميسو / حلا الساند بيتش</span><span class="item-price">30-40</span></div>
-            <div class="item"><span class="item-name">لقيمات نوتيلا / مكس</span><span class="item-price">25-30</span></div>
-            <div class="item"><span class="item-name">كريب نوتيلا / سوشي كريب</span><span class="item-price">25-35</span></div>
-            <div class="item"><span class="item-name">فوتوتشيني كريب / بان كيك</span><span class="item-price">30</span></div>
-            <div class="item"><span class="item-name">قالب كيك (صغير/وسط/كبير)</span><span class="item-price">100-200</span></div>
+        <!-- 2. الشاورما -->
+        <div id="shawarma" class="menu-section">
+            <div class="section-title">الشاورما</div>
+            <div class="items-grid">
+                <div class="item"><span class="item-name">وجبة شاورما</span><span class="item-price">55 ₪</span></div>
+                <div class="item"><span class="item-name">شاورما دبل لحمة</span><span class="item-price">25 ₪</span></div>
+                <div class="item"><span class="item-name">شاورما سوري</span><span class="item-price">30 ₪</span></div>
+                <div class="item"><span class="item-name">شاورما صاروخ</span><span class="item-price">30 ₪</span></div>
+                <div class="item"><span class="item-name">صفيحة شاورما</span><span class="item-price">30 ₪</span></div>
+                <div class="item"><span class="item-name">شاورما اساور / عرب</span><span class="item-price">30 ₪</span></div>
+                <div class="item"><span class="item-name">شاورما بيجي</span><span class="item-price">35 ₪</span></div>
+                <div class="item"><span class="item-name">شاورما فينو</span><span class="item-price">25 ₪</span></div>
+                <div class="item"><span class="item-name">شاورما ضاني دبل</span><span class="item-price">45 ₪</span></div>
+                <div class="item"><span class="item-name">شاورما ضاني دبل دبل</span><span class="item-price">50 ₪</span></div>
+                <div class="item"><span class="item-name">صفيحة شاورما ضاني</span><span class="item-price">50 ₪</span></div>
+                <div class="item"><span class="item-name">شاورما ضاني سوري</span><span class="item-price">50 ₪</span></div>
+            </div>
         </div>
 
-        <div class="section-title">العصائر الطبيعية والباردة</div>
-        <div class="items-grid">
-            <div class="item"><span class="item-name">ليمون ونعنع / برتقال</span><span class="item-price">20</span></div>
-            <div class="item"><span class="item-name">مانجا / فراولة / شمام</span><span class="item-price">20</span></div>
-            <div class="item"><span class="item-name">کوكتيل اسطنبولي / فخفيخينا</span><span class="item-price">30</span></div>
-            <div class="item"><span class="item-name">ايس كوفي</span><span class="item-price">25</span></div>
+        <!-- 3. ساندويتشات غربي -->
+        <div id="western" class="menu-section">
+            <div class="section-title">ساندويتشات غربي</div>
+            <div class="items-grid">
+                <div class="item"><span class="item-name">صفيحة مسحب بالجبن</span><span class="item-price">40 ₪</span></div>
+                <div class="item"><span class="item-name">صفيحة ستيك دجاج</span><span class="item-price">30 ₪</span></div>
+                <div class="item"><span class="item-name">ساندويتش تشكن بيتزا</span><span class="item-price">40 ₪</span></div>
+                <div class="item"><span class="item-name">ساندوتش دجاج بالجبنة</span><span class="item-price">40 ₪</span></div>
+                <div class="item"><span class="item-name">ساندويتش شرائح فيليه بالخضار</span><span class="item-price">35 ₪</span></div>
+                <div class="item"><span class="item-name">ساندوتش ساند بيتش</span><span class="item-price">45 ₪</span></div>
+                <div class="item"><span class="item-name">ساندوتش مكسيكي حار</span><span class="item-price">35 ₪</span></div>
+                <div class="item"><span class="item-name">ساندوتش زنجر</span><span class="item-price">30 ₪</span></div>
+                <div class="item"><span class="item-name">كالزوني</span><span class="item-price">45 ₪</span></div>
+                <div class="item"><span class="item-name">تشكن برجر</span><span class="item-price">30 ₪</span></div>
+                <div class="item"><span class="item-name">بيف برجر عرض</span><span class="item-price">25 ₪</span></div>
+                <div class="item"><span class="item-name">برجر بروست</span><span class="item-price">35 ₪</span></div>
+            </div>
         </div>
 
-        <div class="section-title">موهيتو وميلك شيك</div>
-        <div class="items-grid">
-            <div class="item"><span class="item-name">موهيتو (مانجا/فراولة/خوخ)</span><span class="item-price">25</span></div>
-            <div class="item"><span class="item-name">موهيتو ساند بيتش</span><span class="item-price">35</span></div>
-            <div class="item"><span class="item-name">ميلك شيك (جميع النكهات)</span><span class="item-price">25</span></div>
+        <!-- 4. البيتزا والأسماك -->
+        <div id="pizza-fish" class="menu-section">
+            <div class="section-title">البيتزا والأسماك</div>
+            <div class="items-grid">
+                <div class="item"><span class="item-name">بيتزا وسط شاورما</span><span class="item-price">40 ₪</span></div>
+                <div class="item"><span class="item-name">بيتزا وسط لحمة مفرومة</span><span class="item-price">40 ₪</span></div>
+                <div class="item"><span class="item-name">بيتزا وسط خضار / مرجريتا</span><span class="item-price">30 ₪</span></div>
+                <div class="item"><span class="item-name">وجبة سمك 500 غر</span><span class="item-price">120 ₪</span></div>
+                <div class="item"><span class="item-name">كيلو سمك</span><span class="item-price">220 ₪</span></div>
+                <div class="item"><span class="item-name">كيلو سمك شامل ملحقاته</span><span class="item-price">270 ₪</span></div>
+            </div>
         </div>
 
-        <div class="section-title">المشروبات الساخنة والغازية</div>
-        <div class="items-grid">
-            <div class="item"><span class="item-name">قهوة سنجل / دبل</span><span class="item-price">7-10</span></div>
-            <div class="item"><span class="item-name">اسبريسو / نسكافيه / كابتشينو</span><span class="item-price">8</span></div>
-            <div class="item"><span class="item-name">شاي / شوكو</span><span class="item-price">7-8</span></div>
-            <div class="item"><span class="item-name">كولا / سبرايت / طاقة</span><span class="item-price">10</span></div>
-            <div class="item"><span class="item-name">مياه معدنية (صغيرة/كبيرة)</span><span class="item-price">5-10</span></div>
+        <!-- 5. الحلويات -->
+        <div id="desserts" class="menu-section">
+            <div class="section-title">الحلويات والمخبوزات الحلوة</div>
+            <div class="items-grid">
+                <div class="item"><span class="item-name">تشيز بلوبري / لوتس</span><span class="item-price">30-35 ₪</span></div>
+                <div class="item"><span class="item-name">هبه دبي / براونيز</span><span class="item-price">35 ₪</span></div>
+                <div class="item"><span class="item-name">كنافة نوتيلا / أيس كريم</span><span class="item-price">25-30 ₪</span></div>
+                <div class="item"><span class="item-name">بان بريدو (كافيه/مانجا/فراولة)</span><span class="item-price">40 ₪</span></div>
+                <div class="item"><span class="item-name">تيراميسو / حلا الساند بيتش</span><span class="item-price">30-40 ₪</span></div>
+                <div class="item"><span class="item-name">لقيمات نوتيلا / مكس</span><span class="item-price">25-30 ₪</span></div>
+                <div class="item"><span class="item-name">كريب نوتيلا / سوشي كريب</span><span class="item-price">25-35 ₪</span></div>
+                <div class="item"><span class="item-name">فوتوتشيني كريب / بان كيك</span><span class="item-price">30 ₪</span></div>
+                <div class="item"><span class="item-name">قالب كيك (صغير/وسط/كبير)</span><span class="item-price">100-200 ₪</span></div>
+            </div>
         </div>
 
-        <div class="section-title">الأراجيل والخدمات</div>
-        <div class="items-grid">
-            <div class="item"><span class="item-name">ارقيلة (فاخر / بحيرني / ميزو)</span><span class="item-price">90</span></div>
-            <div class="item"><span class="item-name">ارقيلة (ليمون ونعنع / كرز)</span><span class="item-price">70</span></div>
-            <div class="item"><span class="item-name">ارقيلة ساند بيتش</span><span class="item-price">80</span></div>
-            <div class="item"><span class="item-name">خدمة ارقيلة / فحم</span><span class="item-price">30-50</span></div>
-            <div class="item"><span class="item-name">ايجار طاولة شاطئ / مراجيح</span><span class="item-price">30</span></div>
-            <div class="item"><span class="item-name">خدمة عيد ميلاد / طاولة</span><span class="item-price">20</span></div>
+        <!-- 6. العصائر والموهيتو -->
+        <div id="cold-drinks" class="menu-section">
+            <div class="section-title">العصائر الطبيعية، الموهيتو والميلك شيك</div>
+            <div class="items-grid">
+                <div class="item"><span class="item-name">ليمون ونعنع / برتقال</span><span class="item-price">20 ₪</span></div>
+                <div class="item"><span class="item-name">مانجا / فراولة / شمام</span><span class="item-price">20 ₪</span></div>
+                <div class="item"><span class="item-name">کوكتيل اسطنبولي / فخفيخينا</span><span class="item-price">30 ₪</span></div>
+                <div class="item"><span class="item-name">ايس كوفي</span><span class="item-price">25 ₪</span></div>
+                <div class="item"><span class="item-name">موهيتو (مانجا/فراولة/خوخ)</span><span class="item-price">25 ₪</span></div>
+                <div class="item"><span class="item-name">موهيتو ساند بيتش</span><span class="item-price">35 ₪</span></div>
+                <div class="item"><span class="item-name">ميلك شيك (جميع النكهات)</span><span class="item-price">25 ₪</span></div>
+            </div>
         </div>
+
+        <!-- 7. المشروبات الساخنة والغازية -->
+        <div id="hot-drinks" class="menu-section">
+            <div class="section-title">المشروبات الساخنة والغازية والمياه</div>
+            <div class="items-grid">
+                <div class="item"><span class="item-name">قهوة سنجل / دبل</span><span class="item-price">7-10 ₪</span></div>
+                <div class="item"><span class="item-name">اسبريسو / نسكافيه / كابتشينو</span><span class="item-price">8 ₪</span></div>
+                <div class="item"><span class="item-name">شاي / شوكو</span><span class="item-price">7-8 ₪</span></div>
+                <div class="item"><span class="item-name">كولا / سبرايت / طاقة</span><span class="item-price">10 ₪</span></div>
+                <div class="item"><span class="item-name">مياه معدنية (صغيرة/كبيرة)</span><span class="item-price">5-10 ₪</span></div>
+            </div>
+        </div>
+
+        <!-- 8. الأراجيل والخدمات -->
+        <div id="shisha" class="menu-section">
+            <div class="section-title">الأراجيل والخدمات</div>
+            <div class="items-grid">
+                <div class="item"><span class="item-name">ارقيلة (فاخر / بحيرني / ميزو)</span><span class="item-price">90 ₪</span></div>
+                <div class="item"><span class="item-name">ارقيلة (ليمون ونعنع / كرز)</span><span class="item-price">70 ₪</span></div>
+                <div class="item"><span class="item-name">ارقيلة ساند بيتش</span><span class="item-price">80 ₪</span></div>
+                <div class="item"><span class="item-name">خدمة ارقيلة / فحم</span><span class="item-price">30-50 ₪</span></div>
+                <div class="item"><span class="item-name">ايجار طاولة شاطئ / مراجيح</span><span class="item-price">30 ₪</span></div>
+                <div class="item"><span class="item-name">خدمة عيد ميلاد / طاولة</span><span class="item-price">20 ₪</span></div>
+            </div>
+        </div>
+
     </div>
 </div>
+
+<script>
+    function filterCategory(sectionId, btnElement) {
+        const sections = document.querySelectorAll('.menu-section');
+        const buttons = document.querySelectorAll('.cat-btn');
+
+        // إزالة التحديد عن كل الأزرار
+        buttons.forEach(btn => btn.classList.remove('active'));
+        // تحديد الزر اللي ضغط عليه المستخدم
+        btnElement.classList.add('active');
+
+        if (sectionId === 'all') {
+            // إذا ضغط "المنيو كامل"، أظهر كل الأقسام
+            sections.forEach(sec => sec.style.display = 'block');
+        } else {
+            // إذا ضغط قسم معين، اخفِ الكل وأظهر فقط القسم المطلوب
+            sections.forEach(sec => {
+                if (sec.id === sectionId) {
+                    sec.style.display = 'block';
+                } else {
+                    sec.style.display = 'none';
+                }
+            });
+        }
+
+        // تحريك الشريط أفقياً ليظهر الزر المختار بوضوح
+        btnElement.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+    }
+</script>
 
 </body>
 </html>
